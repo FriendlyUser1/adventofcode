@@ -15,4 +15,4 @@ total.sort((a, b) => b - a);
 
 console.log(`Most calories carried: ${total[0]}`);
 console.log(`Top 3 amounts carried: ${total.slice(0, 3).join(", ")}`);
-console.log(`Total: ${total[0] + total[1] + total[2]}`);
+console.log(`Total for top 3: ${total[0] + total[1] + total[2]}`);
