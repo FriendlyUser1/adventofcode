@@ -1,10 +1,12 @@
-const crypto = require("crypto");
+const solve = (zeroes) => {
+	let hexHash = "",
+		n = 0;
 
-let hexHash = "",
-	zeroes = 6,
-	n = 0;
+	while (!hexHash.startsWith("0".repeat(zeroes)))
+		hexHash = require("crypto").createHash("md5").update(`ckczppom${n++}`).digest("hex");
 
-while (!hexHash.startsWith("0".repeat(zeroes)))
-	hexHash = crypto.createHash("md5").update(`ckczppom${n++}`).digest("hex");
+	return n - 1;
+};
 
-console.log(`Number: ${n - 1}`);
+console.log(`Number: ${solve(5)}`); // Part 1
+console.log(`Number: ${solve(6)}`); // Part 2

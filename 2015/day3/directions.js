@@ -1,5 +1,3 @@
-const fs = require("fs");
-
 const deliver = (input) => {
 	let x = 0,
 		y = 0,
@@ -24,26 +22,19 @@ const deliver = (input) => {
 	}
 
 	return houses;
-};
+}
 
-let input = fs.readFileSync("./input.txt", "utf-8").trim().split("");
+const input = require("fs").readFileSync("./input.txt", "utf-8").split("");
 
-console.log(
-	`Number of houses with at least one present, solo Santa: ${
-		Object.keys(deliver(input)).length
-	}`
-);
+// Part 1
+console.log(`Houses with 1+ presents, Santa: ${Object.keys(deliver(input)).length}`);
 
 let input1 = [],
 	input2 = [];
 
-for (let j = 0; j < input.length; j++) {
-	if (j % 2 === 0) input1.push(input[j]);
-	else input2.push(input[j]);
-}
+for (let j = 0; j < input.length; j++) 
+	 (j % 2 === 0)  ?input1.push(input[j]) : input2.push(input[j]);
 
-console.log(
-	`Number of houses with at least one present, Santa + Robo-Santa: ${
-		Object.keys({ ...deliver(input1), ...deliver(input2) }).length
-	}`
-);
+
+// Part 2
+console.log(`Houses with 1+ presents, Santa + Robo-Santa: ${Object.keys({ ...deliver(input1), ...deliver(input2) }).length}`);

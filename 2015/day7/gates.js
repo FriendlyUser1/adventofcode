@@ -38,7 +38,9 @@ const solveWires = (input, wires = {}) => {
 		}
 	};
 
-	for (let i = 0; i < input.length; i++) parseInstruction(input[i], wires);
+	for (let i = 0; i < input.length; i++) {
+		parseInstruction(input[i], wires);
+	}
 
 	while (unknown.length > 0) {
 		for (let j = 0; j < unknown.length; j++) {
@@ -51,19 +53,20 @@ const solveWires = (input, wires = {}) => {
 	return wires;
 };
 
+const fs = require("fs");
+
 // Part 1
-
-const fs = require("fs"),
-	wireA = solveWires(
-		fs.readFileSync("./input.txt", "utf-8").trim().split("\n")
-	)["a"];
-
-console.log(wireA);
+console.log(
+	`Value of wire A: ${
+		solveWires(fs.readFileSync("./input.txt", "utf-8").split("\n"))["a"]
+	}`
+);
 
 // Part 2
-
 console.log(
-	solveWires(fs.readFileSync("./input2.txt", "utf-8").trim().split("\n"), {
-		b: wireA,
-	})["a"]
+	`Value of wire A after override: ${
+		solveWires(fs.readFileSync("./input2.txt", "utf-8").split("\n"), {
+			b: 3176,
+		})["a"]
+	}`
 );

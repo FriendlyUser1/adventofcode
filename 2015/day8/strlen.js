@@ -1,5 +1,4 @@
-const fs = require("fs"),
-	input = fs.readFileSync("./input.txt", "utf-8").split("\n");
+const input = require("fs").readFileSync("./input.txt", "utf-8").split("\n");
 
 let codelen = 0,
 	strlen = 0;
@@ -9,7 +8,7 @@ for (let i = 0; i < input.length; i++) {
 	strlen += eval(input[i]).length;
 }
 
-console.log(codelen - strlen);
+console.log(`Characters: ${codelen - strlen}`); // Part 1
 
 let encodelen = 0;
 
@@ -17,4 +16,4 @@ for (let i = 0; i < input.length; i++) {
 	encodelen += JSON.stringify(input[i]).length;
 }
 
-console.log(encodelen - codelen);
+console.log(`Characters in new encoding: ${encodelen - codelen}`); // Part 2
