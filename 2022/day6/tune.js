@@ -1,11 +1,10 @@
 const findMarker = (input, len) => {
 	for (let i = 0; i < input.length; i++) {
-		let chars = [];
-		for (let c = 0; c < len; c++) chars.push(input[i + c]);
+		let chars = input.slice(i, i + len);
 		if (chars.length === new Set(chars).size) return i + len;
 	}
 };
 
-const input = require("fs").readFileSync("./input.txt", "utf-8").split("");
-console.log(`Packet marker after character ${findMarker(input, 4)}`);
-console.log(`Message marker after character ${findMarker(input, 14)}`);
+const input = require("fs").readFileSync("./input.txt", "utf-8");
+console.log(`Packet marker after character ${findMarker(input, 4)}`); // Part 1
+console.log(`Message marker after character ${findMarker(input, 14)}`); // Part 2
