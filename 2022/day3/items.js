@@ -1,4 +1,4 @@
-const input = require("fs").readFileSync("./input.txt", "utf-8").trim().split("\n"),
+const input = require("fs").readFileSync("./input.txt", "utf-8").split("\n"),
 	alpha = "_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 const solve = (type) => {

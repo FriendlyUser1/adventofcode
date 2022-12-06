@@ -28,10 +28,7 @@ const solve = (input, ruleset) => {
 	return totalScore;
 };
 
-const input = require("fs")
-	.readFileSync("./input.txt", "utf-8")
-	.trim()
-	.split("\n");
+const input = require("fs").readFileSync("./input.txt", "utf-8").split("\n");
 
 console.log(`Total score: ${solve(input, 1)}`); // Part 1
 console.log(`Total score: ${solve(input, 2)}`); // Part 2

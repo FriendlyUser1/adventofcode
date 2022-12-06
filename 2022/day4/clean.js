@@ -1,4 +1,4 @@
-const input = require("fs").readFileSync("./input.txt", "utf-8").trim().split("\n");
+const input = require("fs").readFileSync("./input.txt", "utf-8").split("\n");
 
 let fullOverlaps = 0,
 	partOverlaps = 0;
