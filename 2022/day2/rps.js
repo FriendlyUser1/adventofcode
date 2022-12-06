@@ -1,6 +1,6 @@
 // Score - Shape (Rock: 1; Paper: 2; Scissors: 3) + Outcome (Loss: 0; Draw: 3; Win: 6)
 // Column 1 - A: Rock; B: Paper; C: Scissors
-// Column 2 - (PART 1: X: Rock; Y: Paper; Z: Scissors) (PART 2: X: Lose; Y: Draw; Z: Win)
+// Column 2 - (Part 1: X: Rock; Y: Paper; Z: Scissors) (Part 2: X: Lose; Y: Draw; Z: Win)
 
 const calculateScore = (c1, c2, ruleset) => {
 	let score = 0;

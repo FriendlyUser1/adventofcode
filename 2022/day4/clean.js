@@ -21,5 +21,5 @@ for (let i = 0; i < input.length; i++) {
 		partOverlaps++;
 }
 
-console.log(`Full overlaps: ${fullOverlaps}`); // PArt 1
+console.log(`Full overlaps: ${fullOverlaps}`); // Part 1
 console.log(`All overlaps: ${partOverlaps + fullOverlaps}`); // Part 2
