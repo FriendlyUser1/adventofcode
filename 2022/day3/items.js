@@ -1,20 +1,26 @@
-const fs = require("fs");
+const input = require("fs").readFileSync("./input.txt", "utf-8").trim().split("\n"),
+	alpha = "_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
-let input = fs.readFileSync("./input.txt", "utf-8").trim().split("\n"),
-	alpha = "_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
-	total = 0;
+const solve = (type) => {
+	let total = 0;
 
-for (let i = 0; i < input.length; i++) {
-	let len = input[i].length,
-		half1 = input[i].substring(0, len / 2).split(""),
-		half2 = input[i].substring(len / 2);
+	for (let i = 0; i < input.length; i += type === "item" ? 1 : 3) {
+		let part1 = type === "item" ? input[i].substring(0, input[i].length / 2) : input[i],
+			part2 = type === "item" ? input[i].substring(input[i].length / 2) : input[i + 1],
+			part3 = type === "item" ? part2 : input[i + 2];
 
-	for (let j = 0; j < half1.length; j++) {
-		if (half2.includes(half1[j])) {
-			total += alpha.indexOf(half1[j]);
-			break;
+		part1 = part1.split("");
+
+		for (let j = 0; j < part1.length; j++) {
+			if (part2.includes(part1[j]) && part3.includes(part1[j])) {
+				total += alpha.indexOf(part1[j]);
+				break;
+			}
 		}
 	}
-}
 
-console.log(total);
+	return total;
+};
+
+console.log(`Total item priorities: ${solve("item")}`); // Part 1
+console.log(`Total item priorities: ${solve("badge")}`); // Part 2

@@ -1,7 +1,9 @@
-const fs = require("fs");
+const input = require("fs")
+	.readFileSync("./input.txt", "utf-8")
+	.trim()
+	.split("\n\n");
 
-let input = fs.readFileSync("./input.txt", "utf-8").trim().split("\n\n"),
-	total = [];
+let total = [];
 
 for (let i = 0; i < input.length; i++) {
 	let carrying = input[i]

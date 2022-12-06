@@ -1,5 +1,4 @@
-const fs = require("fs"),
-	input = fs.readFileSync("./input.txt", "utf-8").trim().split("\n");
+const input = require("fs").readFileSync("./input.txt", "utf-8").trim().split("\n");
 
 let fullOverlaps = 0,
 	partOverlaps = 0;
@@ -22,5 +21,5 @@ for (let i = 0; i < input.length; i++) {
 		partOverlaps++;
 }
 
-console.log(`Full overlaps: ${fullOverlaps}`);
-console.log(`Part overlaps: ${partOverlaps + fullOverlaps}`);
+console.log(`Full overlaps: ${fullOverlaps}`); // PArt 1
+console.log(`All overlaps: ${partOverlaps + fullOverlaps}`); // Part 2
