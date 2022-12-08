@@ -19,6 +19,7 @@ class Tree {
 const input = require("fs").readFileSync(`./input.txt`, "utf-8").split("\n"),
 	tree = new Tree();
 
+// Build tree
 for (let i = 0; i < input.length; i++) {
 	let ins = input[i].split(" ");
 	if (ins[0] === "$") {
@@ -30,6 +31,7 @@ for (let i = 0; i < input.length; i++) {
 
 let dirs = {};
 
+// Get sizes of directories
 const crawl = (dir = "", branch = tree.view) => {
 	let size = 0;
 	for (let [k, v] of Object.entries(branch)) {
