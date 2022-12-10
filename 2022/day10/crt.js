@@ -25,8 +25,8 @@ const draw = () => {
 	if (screen[index].length < cycle - noteScreen + 40 && cycle <= 240) {
 		// If cycle index of current line is in sprite
 		if ([x - 1, x, x + 1].some((n) => n === (cycle - 1) % 40))
-			screen[index] += "#";
-		else screen[index] += ".";
+			screen[index] += "█";
+		else screen[index] += " ";
 	}
 
 	if (cycle === noteScreen && cycle !== 240) noteScreen += 40;
