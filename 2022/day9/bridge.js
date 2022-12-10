@@ -5,8 +5,8 @@ const moves = require("fs")
 
 /**
  * Simulates a rope with knots
- * @param {[string,number][]} moves 2D list of moves e.g: [ ["L", 2], ["D", 2] ]
- * @param {number} knots Number of non-head knots
+ * @param {[string,number][]} moves - 2D list of moves e.g: [ ["L", 2], ["D", 2] ]
+ * @param {number} knots - Number of non-head knots
  * @returns {number} Number of locations the last knot has been to
  */
 const simulate = (moves, knots = 1) => {

@@ -1,7 +1,7 @@
 /**
  * Solve instructions and return value of wires
- * @param {String[]} input List of instructions
- * @param {{wire:value}} wires Object of wires to start with
+ * @param {String[]} input - List of instructions
+ * @param {{wire:value}} wires - Object of wires to start with
  */
 const solveWires = (input, wires = {}) => {
 	let unknown = [];
