@@ -78,8 +78,6 @@ const findSteps = (start, end) => {
 		steps = 0,
 		node = end;
 
-	// console.log(parent);
-
 	while (parent[node]) {
 		steps++;
 		node = parent[node];
