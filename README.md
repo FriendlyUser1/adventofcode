@@ -1,3 +1,3 @@
 # adventofcode
 
-https://adventofcode.com/ challenge solutions in JavaScript
+<https://adventofcode.com/> challenge solutions in JavaScript
