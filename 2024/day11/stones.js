@@ -20,7 +20,7 @@ const blink = () => {
 
 		if (stoneN === 0) addStone(1);
 		else if (stone.length % 2 === 0) {
-			const halfLength = Math.floor(stone.length / 2),
+			const halfLength = stone.length / 2,
 				halfOne = parseInt(stone.substring(0, halfLength)),
 				halfTwo = parseInt(stone.substring(halfLength));
 
