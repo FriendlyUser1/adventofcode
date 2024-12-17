@@ -1,12 +1,15 @@
+const VISUALISE = false;
+
 class Warehouse {
 	/** @type {string[][]} grid */ grid;
 	/** @type {string[]} moves */ moves;
 	/** @type {number} x */ x;
 	/** @type {number} y */ y;
 
-	constructor(map, moves) {
+	constructor(map, moves, wide) {
 		this.grid = map;
 		this.moves = moves;
+		this.boxType = wide ? "[" : "O";
 
 		// Get inital coords
 		this.grid.forEach((row, y) =>
@@ -20,56 +23,86 @@ class Warehouse {
 	}
 
 	move(dir) {
-		console.log(
-			"MOVING",
-			["UP", "DOWN", "LEFT", "RIGHT"][dir],
-			"FROM",
-			this.x,
-			this.y
-		);
-
 		const nextX = this.x + (dir == 2 ? -1 : dir == 3 ? 1 : 0);
 		const nextY = this.y + (dir == 0 ? -1 : dir == 1 ? 1 : 0);
 
 		const nextPlace = this.grid[nextY][nextX];
 
 		if (nextPlace == "#") return "Wall!";
-		if (nextPlace == "O") {
+		if (nextPlace != ".") {
 			const column = this.grid.map((row) => row[this.x]).flat(),
-				row = this.grid[this.y];
-
-			const upVals = column.slice(0, this.y),
+				row = this.grid[this.y],
+				upVals = column.slice(0, this.y),
 				downVals = column.slice(nextY),
 				leftVals = row.slice(0, this.x),
 				rightVals = row.slice(nextX);
 
-			// check if there is space between the box
-			// and the nearest wall
-			if (
-				(dir == 0 &&
-					!column.slice(upVals.lastIndexOf("#"), this.y).includes(".")) ||
-				(dir == 1 &&
-					!column.slice(nextY, nextY + downVals.indexOf("#")).includes(".")) ||
-				(dir == 2 &&
-					!row.slice(leftVals.lastIndexOf("#"), this.x).includes(".")) ||
-				(dir == 3 &&
-					!row.slice(nextX, nextX + rightVals.indexOf("#")).includes("."))
-			)
-				return "Can't move box!";
+			// left / right
+			if (dir > 1) {
+				if (
+					(dir == 2 &&
+						!row.slice(leftVals.lastIndexOf("#"), this.x).includes(".")) ||
+					(dir == 3 &&
+						!row.slice(nextX, nextX + rightVals.indexOf("#")).includes("."))
+				)
+					return "Can't move box!";
 
-			// update box positions
-			if (dir == 0)
-				for (let i = upVals.lastIndexOf("."); i < this.y; i++)
-					this.grid[i][this.x] = "O";
-			else if (dir == 1)
-				for (let i = nextY + 1; i <= nextY + downVals.indexOf("."); i++)
-					this.grid[i][this.x] = "O";
-			else if (dir == 2)
-				for (let i = leftVals.lastIndexOf("."); i < this.x; i++)
-					this.grid[this.y][i] = "O";
-			else if (dir == 3)
-				for (let i = nextX + 1; i <= nextX + rightVals.indexOf("."); i++)
-					this.grid[this.y][i] = "O";
+				this.grid[this.y].splice(
+					dir > 2 ? nextX + rightVals.indexOf(".") : leftVals.lastIndexOf("."),
+					1
+				);
+
+				this.grid[this.y].splice(nextX, 0, ".");
+			} else if (nextPlace == "O") {
+				// Check if valid move
+				if (
+					(dir == 0 &&
+						!column.slice(upVals.lastIndexOf("#"), this.y).includes(".")) ||
+					(dir == 1 &&
+						!column.slice(nextY, nextY + downVals.indexOf("#")).includes("."))
+				)
+					return "Can't move box!";
+
+				// Update grid
+				let yStart = dir < 1 ? upVals.lastIndexOf(".") : nextY + 1,
+					yLimit = dir < 1 ? this.y - 1 : nextY + downVals.indexOf(".");
+
+				for (let y = yStart; y <= yLimit; y++) this.grid[y][this.x] = "O";
+			} else {
+				// Check if valid move
+				const boxesToMove = [];
+				const yMode = dir < 1 ? -1 : 1;
+
+				const colsToCheck = new Set().add(this.x);
+
+				if (nextPlace == "[") colsToCheck.add(this.x + 1);
+				else colsToCheck.add(this.x - 1);
+
+				let currentRow = this.y + yMode;
+
+				while (colsToCheck.size > 0) {
+					for (const col of colsToCheck.values()) {
+						const current = this.grid[currentRow][col];
+
+						if ("[]".includes(current))
+							boxesToMove.push({ x: col, y: currentRow, value: current });
+
+						if (current == "[") colsToCheck.add(col + 1);
+						else if (current == "]") colsToCheck.add(col - 1);
+						else if (current == "#") return "Can't move box!";
+						else colsToCheck.delete(col);
+					}
+
+					currentRow += yMode;
+				}
+
+				// Update grid
+				boxesToMove.forEach((box) => (this.grid[box.y][box.x] = "."));
+
+				boxesToMove.forEach(
+					(box) => (this.grid[box.y + yMode][box.x] = box.value)
+				);
+			}
 		}
 
 		this.grid[this.y][this.x] = ".";
@@ -81,27 +114,28 @@ class Warehouse {
 	}
 
 	async run() {
-		await this.print("Initial state");
+		if (VISUALISE) await this.print("Initial state");
 
 		for (let i = 0; i < this.moves.length; i++) {
-			const move = this.moves[i];
-			let debug = this.move(["^", "v", "<", ">"].indexOf(move));
+			const instruction = this.moves[i],
+				msg = this.move(["^", "v", "<", ">"].indexOf(instruction));
 
-			await this.print(`Trying ${move}\n${debug}`);
+			if (VISUALISE) await this.print(`Trying ${instruction}\n${msg}`);
 		}
 
-		console.log(
-			"Total GPS coords:",
-			this.grid.reduce(
-				(rowAcc, row, y) =>
-					rowAcc +
-					row.reduce(
-						(colAcc, col, x) => (col == "O" ? colAcc + 100 * y + x : colAcc),
-						0
-					),
+		const rowTotals = this.grid.map((row, y) =>
+			row.reduce(
+				(colAcc, col, x) =>
+					col == this.boxType ? colAcc + 100 * y + x : colAcc,
 				0
 			)
 		);
+
+		const totalGPS = rowTotals.reduce((total, _, y) => total + rowTotals[y]);
+
+		console.log("Total GPS coords:", totalGPS);
+
+		return totalGPS;
 	}
 
 	async print(msg) {
@@ -113,10 +147,23 @@ class Warehouse {
 	}
 }
 
-const input = require("fs").readFileSync("./input.txt", "utf-8").split("\n\n");
-const inputMap = input[0].split("\n").map((r) => r.split(""));
-const inputMoves = input[1].replace(/\n/g, "").split("");
+const input = require("fs").readFileSync("./input.txt", "utf-8").split("\n\n"),
+	inputMoves = input[1].replace(/\n/g, "").split("");
 
-const main = async () => await new Warehouse(inputMap, inputMoves).run();
+const warehouse1 = input[0].split("\n").map((r) => r.split("")),
+	warehouse2 = warehouse1.map((row) =>
+		row
+			.map((col) => {
+				if (col == "#") return ["#", "#"];
+				if (col == "O") return ["[", "]"];
+				if (col == ".") return [".", "."];
+				if (col == "@") return ["@", "."];
+			})
+			.flat()
+	);
 
-main();
+const main = async (warehouseMap, isWide = false) =>
+	await new Warehouse(warehouseMap, inputMoves, isWide).run();
+
+main(warehouse1);
+main(warehouse2, true);
