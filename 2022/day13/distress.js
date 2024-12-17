@@ -1,26 +1,29 @@
-const pairs = require("fs").readFileSync(`./input.txt`, "utf-8").split("\n\n"),
-	num = Number.isFinite,
-	compare = (l, r) => {
-		if (num(l) && num(r)) {
-			if (l < r) return 1;
-			if (l > r) return -1;
-		} else if (num(l)) return compare([l], r);
-		else if (num(r)) return compare(l, [r]);
-		else {
-			if (l === undefined) return 1;
-			else if (r === undefined) return -1;
+import { readFileSync } from "node:fs";
 
-			for (let i = 0; i < Math.max(l.length, r.length); i++) {
-				let comp = compare(l[i], r[i], i);
-				if (comp !== 0) return comp;
-			}
+const pairs = readFileSync(`./input.txt`, "utf-8").split("\n\n"),
+	isNum = Number.isFinite;
 
-			if (l.length < r.length) return 1;
-			if (l.length > r.length) return -1;
+const compare = (l, r) => {
+	if (isNum(l) && isNum(r)) {
+		if (l < r) return 1;
+		if (l > r) return -1;
+	} else if (isNum(l)) return compare([l], r);
+	else if (isNum(r)) return compare(l, [r]);
+	else {
+		if (l === undefined) return 1;
+		else if (r === undefined) return -1;
+
+		for (let i = 0; i < Math.max(l.length, r.length); i++) {
+			let comp = compare(l[i], r[i]);
+			if (comp !== 0) return comp;
 		}
 
-		return 0;
-	};
+		if (l.length < r.length) return 1;
+		if (l.length > r.length) return -1;
+	}
+
+	return 0;
+};
 
 let inOrder = 0;
 

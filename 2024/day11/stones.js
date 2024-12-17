@@ -1,7 +1,8 @@
+import { readFileSync } from "node:fs";
+
 const stones = {};
 
-require("fs")
-	.readFileSync("./input.txt", "utf-8")
+readFileSync("./input.txt", "utf-8")
 	.split(" ")
 	.map((s) => parseInt(s))
 	.forEach((s) => (stones[s] ? stones[s]++ : (stones[s] = 1)));

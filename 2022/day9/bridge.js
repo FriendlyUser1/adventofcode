@@ -1,11 +1,12 @@
-const moves = require("fs")
-	.readFileSync("./input.txt", "utf-8")
+import { readFileSync } from "node:fs";
+
+const moves = readFileSync("./input.txt", "utf-8")
 	.split("\n")
 	.map((m) => m.split(" "));
 
 /**
  * Simulates a rope with knots
- * @param {[string,number][]} moves - 2D list of moves e.g: [ ["L", 2], ["D", 2] ]
+ * @param {string[][]} moves - 2D list of moves e.g: [ ["L", 2], ["D", 2] ]
  * @param {number} knots - Number of non-head knots
  * @returns {number} Number of locations the last knot has been to
  */

@@ -1,5 +1,6 @@
-const fs = require("fs"),
-	input = fs.readFileSync("./input.txt", "utf-8"),
+import { readFileSync } from "node:fs";
+
+const input = readFileSync("./input.txt", "utf-8"),
 	map = input.split("\n"),
 	clearmap = input.replace("^", ".").split("\n"),
 	mapHeight = map.length,

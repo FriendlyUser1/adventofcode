@@ -1,6 +1,7 @@
+import { readFileSync } from "node:fs";
+
 // Build rows and columns
-const rows = require("fs")
-		.readFileSync("./input.txt", "utf-8")
+const rows = readFileSync("./input.txt", "utf-8")
 		.split("\n")
 		.map((r) => r.split("").map((n) => parseInt(n))),
 	cols = new Array(rows.length)
@@ -14,7 +15,7 @@ rows.forEach((r, i) => r.forEach((_, j) => (cols[i][j] = rows[j][i])));
  * Count visible trees
  * @param {number[][]} rows
  * @param {number[][]} cols
- * @returns {{xy:visible}}
+ * @returns {{"x,y"?: number}}
  */
 const findVisible = (rows, cols) => {
 	let trees = {};
@@ -104,7 +105,10 @@ const findScenic = (rows, cols) => {
 
 // Part 1
 let visibleCount = 0;
-for ([k, v] of Object.entries(findVisible(rows, cols))) if (v) visibleCount++;
+
+for (const height of Object.values(findVisible(rows, cols)))
+	if (height) visibleCount++;
+
 console.log(`Visible trees: ${visibleCount}`);
 
 console.log(`Highest scenic score: ${findScenic(rows, cols)}`); // Part 2

@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+
 const VISUALISE = false;
 
 class Warehouse {
@@ -147,7 +149,7 @@ class Warehouse {
 	}
 }
 
-const input = require("fs").readFileSync("./input.txt", "utf-8").split("\n\n"),
+const input = readFileSync("./input.txt", "utf-8").split("\n\n"),
 	inputMoves = input[1].replace(/\n/g, "").split("");
 
 const warehouse1 = input[0].split("\n").map((r) => r.split("")),

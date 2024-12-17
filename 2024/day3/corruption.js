@@ -1,4 +1,6 @@
-const memdump = require("fs").readFileSync("./input.txt", "utf-8");
+import { readFileSync } from "node:fs";
+
+const memdump = readFileSync("./input.txt", "utf-8");
 
 let enabled = true;
 const mul = (x, y) => x * y;

@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+
 // Parsing input
 
 const parseInput = (input) => {
@@ -48,7 +50,7 @@ const solve = (input, model = "9000") => {
 	return `The top crates: ${tops}`;
 };
 
-const input = require("fs").readFileSync("./input.txt", "utf-8").split("\n");
+const input = readFileSync("./input.txt", "utf-8").split("\n");
 
 console.log(solve(input)); // Part 1
 console.log(solve(input, "9001")); // Part 2

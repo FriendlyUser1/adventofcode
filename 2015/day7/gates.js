@@ -1,7 +1,9 @@
+import { readFileSync } from "node:fs";
+
 /**
  * Solve instructions and return value of wires
  * @param {String[]} input - List of instructions
- * @param {{wire:value}} wires - Object of wires to start with
+ * @param {object} wires - Object of wires to start with
  */
 const solveWires = (input, wires = {}) => {
 	let unknown = [];
@@ -53,19 +55,17 @@ const solveWires = (input, wires = {}) => {
 	return wires;
 };
 
-const fs = require("fs");
-
 // Part 1
 console.log(
 	`Value of wire A: ${
-		solveWires(fs.readFileSync("./input.txt", "utf-8").split("\n"))["a"]
+		solveWires(readFileSync("./input.txt", "utf-8").split("\n"))["a"]
 	}`
 );
 
 // Part 2
 console.log(
 	`Value of wire A after override: ${
-		solveWires(fs.readFileSync("./input2.txt", "utf-8").split("\n"), {
+		solveWires(readFileSync("./input2.txt", "utf-8").split("\n"), {
 			b: 3176,
 		})["a"]
 	}`

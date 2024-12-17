@@ -1,4 +1,6 @@
-const diskMap = require("fs").readFileSync("./input.txt", "utf-8").split("");
+import { readFileSync } from "node:fs";
+
+const diskMap = readFileSync("./input.txt", "utf-8").split("");
 
 // IDS CAN BE ABOVE 9
 // ID 10+ still only takes 1 space

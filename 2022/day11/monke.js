@@ -1,5 +1,6 @@
-const monkeys = require("fs")
-	.readFileSync("./input.txt", "utf-8")
+import { readFileSync } from "node:fs";
+
+const monkeys = readFileSync("./input.txt", "utf-8")
 	.split("\n\n")
 	.map((m) => m.split("\n").map((a) => a.trim()));
 

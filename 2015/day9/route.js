@@ -1,12 +1,12 @@
-const input = require("fs").readFileSync("./input.txt", "utf-8").split("\n");
+import { readFileSync } from "node:fs";
+
+const input = readFileSync("./input.txt", "utf-8").split("\n");
 
 let locations = new Set();
 
 input.forEach((d) => {
 	d.match(/([A-Z][\S]+)/g).forEach((l) => locations.add(l)); // Get locations from input line
 });
-
-locations = Array.from(locations);
 
 // Function from https://stackoverflow.com/a/71878206
 const combinations = (arr) => {
@@ -34,7 +34,7 @@ const combinations = (arr) => {
 	return result;
 };
 
-let routes = combinations(locations),
+let routes = combinations(Array.from(locations)),
 	routeDistances = [];
 
 routes.splice(routes.length / 2, routes.length / 2); // Remove the duplicate (reversed) routes
@@ -56,10 +56,14 @@ let min = Math.min(...routeDistances),
 
 // Part 1
 console.log(
-	`Shortest route: ${routes[routeDistances.indexOf(min)].join(" -> ")}, distance: ${min}`
+	`Shortest route: ${routes[routeDistances.indexOf(min)].join(
+		" -> "
+	)}, distance: ${min}`
 );
 
 // Part 2
 console.log(
-	`Longest route: ${routes[routeDistances.indexOf(max)].join(" -> ")}, distance: ${max}`
+	`Longest route: ${routes[routeDistances.indexOf(max)].join(
+		" -> "
+	)}, distance: ${max}`
 );

@@ -1,4 +1,6 @@
-const input = require("fs").readFileSync("./input.txt", "utf-8"),
+import { readFileSync } from "node:fs";
+
+const input = readFileSync("./input.txt", "utf-8"),
 	map = input.split("\n").map((r) => r.split("")),
 	mapSize = map.length;
 

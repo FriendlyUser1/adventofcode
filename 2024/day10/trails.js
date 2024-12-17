@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+
 class MapNode {
 	/**
 	 * @param {number} x
@@ -15,8 +17,7 @@ class MapNode {
 	}
 }
 
-const Map = require("fs")
-		.readFileSync("./input.txt", "utf-8")
+const Map = readFileSync("./input.txt", "utf-8")
 		.split("\n")
 		.map((r, y) => r.split("").map((c, x) => new MapNode(x, y, c))),
 	mapSize = Map.length;

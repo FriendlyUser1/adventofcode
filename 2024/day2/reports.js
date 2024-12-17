@@ -1,5 +1,6 @@
-const reports = require("fs")
-	.readFileSync("./input.txt", "utf-8")
+import { readFileSync } from "node:fs";
+
+const reports = readFileSync("./input.txt", "utf-8")
 	.split("\n")
 	.map((r) => r.split(" ").map((l) => parseInt(l)));
 

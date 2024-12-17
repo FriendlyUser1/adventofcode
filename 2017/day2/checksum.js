@@ -1,5 +1,6 @@
-const rows = require("fs")
-	.readFileSync("./input.txt", "utf-8")
+import { readFileSync } from "node:fs";
+
+const rows = readFileSync("./input.txt", "utf-8")
 	.split("\n")
 	.map((r) => r.match(/[0-9]+/g).map((n) => parseInt(n)));
 

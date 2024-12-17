@@ -1,4 +1,6 @@
-const input = require("fs").readFileSync("./input.txt", "utf-8").split("\n");
+import { readFileSync } from "node:fs";
+
+const input = readFileSync("./input.txt", "utf-8").split("\n");
 
 const judgeStrings = (rules) => {
 	let nice = 0;

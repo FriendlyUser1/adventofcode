@@ -1,4 +1,6 @@
-const inputs = require("fs").readFileSync("./input.txt", "utf-8").split("\n");
+import { readFileSync } from "node:fs";
+
+const inputs = readFileSync("./input.txt", "utf-8").split("\n");
 const mod = (n1, n2) => ((n1 % n2) + n2) % n2;
 
 const WIDTH = 101,

@@ -1,5 +1,6 @@
-const input = require("fs")
-	.readFileSync("./input.txt", "utf-8")
+import { readFileSync } from "node:fs";
+
+const input = readFileSync("./input.txt", "utf-8")
 	.split("\n")
 	.map((l) => l.replace("S", "A").replace("E", "Z").split(""));
 

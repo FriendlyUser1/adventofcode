@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+
 const simulate = (input, floor = false) => {
 	const rocks = input
 			.split("\n")
@@ -71,7 +73,7 @@ const simulate = (input, floor = false) => {
 	}
 };
 
-const input = require("fs").readFileSync(`./${process.argv[2]}`, "utf-8");
+const input = readFileSync(`./${process.argv[2]}`, "utf-8");
 
 console.log(simulate(input)); // Part 1
 

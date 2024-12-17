@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+
 class Tree {
 	constructor() {
 		this.view = {};
@@ -16,7 +18,7 @@ class Tree {
 	}
 }
 
-const input = require("fs").readFileSync(`./input.txt`, "utf-8").split("\n"),
+const input = readFileSync(`./input.txt`, "utf-8").split("\n"),
 	tree = new Tree();
 
 // Build tree

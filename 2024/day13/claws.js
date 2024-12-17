@@ -1,4 +1,6 @@
-const inputs = require("fs").readFileSync("./input.txt", "utf-8").split("\n\n");
+import { readFileSync } from "node:fs";
+
+const inputs = readFileSync("./input.txt", "utf-8").split("\n\n");
 
 const nTokens = (/** @type {number[]} */ [a1, a2, b1, b2, c1, c2]) => {
 	const A = (c1 * b2 - b1 * c2) / (a1 * b2 - b1 * a2);

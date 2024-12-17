@@ -1,9 +1,11 @@
+import { createHash } from "node:crypto";
+
 const solve = (zeroes) => {
 	let hexHash = "",
 		n = 0;
 
 	while (!hexHash.startsWith("0".repeat(zeroes)))
-		hexHash = require("crypto").createHash("md5").update(`ckczppom${n++}`).digest("hex");
+		hexHash = createHash("md5").update(`ckczppom${n++}`).digest("hex");
 
 	return n - 1;
 };

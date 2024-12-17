@@ -1,11 +1,10 @@
-const input = require("fs").readFileSync("./input.txt", "utf-8").split("\n\n");
+import { readFileSync } from "node:fs";
+const input = readFileSync("./input.txt", "utf-8").split("\n\n");
 
 let total = [];
 
 for (let i = 0; i < input.length; i++) {
-	let carrying = input[i]
-		.split("\n")
-		.reduce((acc, n) => parseInt(acc) + parseInt(n), 0);
+	let carrying = input[i].split("\n").reduce((acc, n) => acc + parseInt(n), 0);
 
 	total.push(carrying);
 }

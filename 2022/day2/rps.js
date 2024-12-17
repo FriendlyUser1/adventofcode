@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+
 // Score - Shape (Rock: 1; Paper: 2; Scissors: 3) + Outcome (Loss: 0; Draw: 3; Win: 6)
 // Column 1 - A: Rock; B: Paper; C: Scissors
 // Column 2 - (Part 1: X: Rock; Y: Paper; Z: Scissors) (Part 2: X: Lose; Y: Draw; Z: Win)
@@ -28,7 +30,7 @@ const solve = (input, ruleset) => {
 	return totalScore;
 };
 
-const input = require("fs").readFileSync("./input.txt", "utf-8").split("\n");
+const input = readFileSync("./input.txt", "utf-8").split("\n");
 
 console.log(`Total score: ${solve(input, 1)}`); // Part 1
 console.log(`Total score: ${solve(input, 2)}`); // Part 2

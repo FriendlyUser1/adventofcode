@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+
 class Plot {
 	/** @type {number} */ x;
 	/** @type {number} */ y;
@@ -23,8 +25,7 @@ class Region {
 	}
 }
 
-const Farm = require("fs")
-		.readFileSync("./input.txt", "utf-8")
+const Farm = readFileSync("./input.txt", "utf-8")
 		.split("\n")
 		.map((r, y) => r.split("").map((c, x) => new Plot(x, y, c))),
 	farmSize = Farm.length - 1;
