@@ -7,7 +7,7 @@ let last = 50;
 
 for (let i = 0; i < input.length; i++) {
 	let rotate = parseInt(input[i].substring(1));
-	let direction = input[i].includes("L") ? -1 : 1;
+	const direction = input[i].includes("L") ? -1 : 1;
 
 	for (; rotate > 0; rotate--) {
 		last += 1 * direction;
